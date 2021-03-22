@@ -1,87 +1,103 @@
 var quizQuestions = [
   {
-      question: "What franchise would you rather play a game from?",
+      question: "Would you describe yourself as a savvy spender or a penny pincher?",
       answers: [
           {
-              type: "Microsoft",
-              content: "Halo"
+              type: "Chardonnay", // need to pick what this would correspond to 
+              content: "I never check the price tag when I shop!"
           },
           {
-              type: "Nintendo",
-              content: "Pokemon"
+              type: "Merlot",
+              content: "I like to save money, but I’m willing to splurge here and there"
           },
           {
-              type: "Sony",
-              content: "Uncharted"
+              type: "Pinot",
+              content: "Saving money is a priority to me, I tend to go for the cheapest options when I shop"
           }
       ]
   },
   {
-      question: "Which console would you prefer to play with friends?",
+      question: "Do you prefer sweet or salty foods?",
       answers: [
           {
-              type: "Microsoft",
-              content: "X-Box"
+              type: "Chardonnay",
+              content: "I prefer a bag of chips over a chocolate bar"
           },
           {
-              type: "Nintendo",
-              content: "Nintendo 64"
+              type: "Merlot",
+              content: "I prefer a chocolate bar over a bag of chips"
           },
           {
-              type: "Sony",
-              content: "Playstation 1"
+              type: "Pinot",
+              content: "I like a mixture of both"
           }
       ]
   },
   {
-      question: "Which of these racing franchises would you prefer to play a game from?",
+      question: "What is your drink of choice?",
       answers: [
           {
-              type: "Microsoft",
-              content: "Forza"
+              type: "Chardonnay",
+              content: "A margarita"
           },
           {
-              type: "Nintendo",
-              content: "Mario Kart"
+              type: "Merlot",
+              content: "Vodka on the rocks"
           },
           {
-              type: "Sony",
-              content: "Gran Turismo"
+              type: "Pinot",
+              content: "Beer"
           }
       ]
   },
   {
-      question: "Which of these games do you think is best?",
+      question: "How do you take your coffee?",
       answers: [
           {
-              type: "Microsoft",
-              content: "BioShock"
+              type: "Chardonnay",
+              content: "Black"
           },
           {
-              type: "Nintendo",
-              content: "The Legend of Zelda: Ocarina of Time"
+              type: "Merlot",
+              content: "Light cream"
           },
           {
-              type: "Sony",
-              content: "Final Fantasy VII"
-          }
+              type: "Pinot",
+              content: "Light cream & sugar"
+          },
+          {
+            type: "Pinot",
+            content: "Medium cream & sugar"
+        },
+        {
+            type: "Pinot",
+            content: "Heavy cream & sugar"
+        },
+        {
+            type: "Pinot",
+            content: "I don't drink coffee"
+        }
       ]
   },
   {
-      question: "What console would you prefer to own?",
+      question: "What is your favorite candy?",
       answers: [
           {
-              type: "Microsoft",
-              content: "X-Box One"
+              type: "Chardonnay",
+              content: "Sour Gummy Worms"
           },
           {
-              type: "Nintendo",
-              content: "Wii U"
+              type: "Merlot",
+              content: "M&Ms"
           },
           {
-              type: "Sony",
-              content: "Playstation 4"
-          }
+              type: "Pinot",
+              content: "Sour skittles"
+          },
+          {
+            type: "Pinot",
+            content: "Starburst"
+        }
       ]
   }
 ];

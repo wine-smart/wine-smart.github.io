@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Navbar, Nav } from 'react-bootstrap';
+import { Button, Navbar, Nav, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 
@@ -34,9 +34,15 @@ class Intro extends React.Component {
             </>
 
             <div className="App">
-            <header className="App-header">
+            <header className="Intro">
           
-            <h5> More about us and what we do here</h5>
+            <Card className = "instructions">
+                <Card.Body>
+                       {/* <Card.Title>Chardonnay</Card.Title> */}
+                       <Card.Text>Take this 5 question quiz to find out what wines would best fit your preferences:</Card.Text>
+                </Card.Body>
+            </Card>
+
             <div>
                 <Link to="/quiz1">
                     <Button variant="primary" >Let's get started!</Button>
