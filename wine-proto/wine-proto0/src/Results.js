@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, CardDeck} from 'react-bootstrap';
+import {Card, CardDeck, Navbar, Nav} from 'react-bootstrap';
 
 class Results extends React.Component {
     constructor(props){
@@ -9,6 +9,28 @@ class Results extends React.Component {
     }
     render() {
         return (
+            <>
+            <>
+            <Navbar bg="light" variant="light">
+                <Link to="/#home">
+                    <Navbar.Brand href="#home">WineSmart</Navbar.Brand>
+                </Link>
+                <Nav className="mr-auto">
+            
+                <Link to="/#home">
+                    <Nav.Link href="#home">Home</Nav.Link>
+                </Link>
+                <Link to="/quiz1">
+                <Nav.Link href="#features">Take the Quiz!</Nav.Link>
+                </Link>
+                <Link to="/results">
+                <Nav.Link href="#recommendations">Recommendations</Nav.Link>
+                </Link> 
+                </Nav>
+            </Navbar>
+            </>
+            
+
             <div>
                <p>Recommendations based on AI</p>
                <CardDeck>
@@ -53,6 +75,7 @@ class Results extends React.Component {
                    </Card>
                </CardDeck>
             </div>
+            </>
         )
     }
 }
