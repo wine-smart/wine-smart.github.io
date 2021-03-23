@@ -3,15 +3,15 @@ var quizQuestions = [
       question: "Would you describe yourself as a savvy spender or a penny pincher?",
       answers: [
           {
-              type: "Chardonnay", // need to pick what this would correspond to 
+              type: "MoreExpensive", // need to pick what this would correspond to 
               content: "I never check the price tag when I shop!"
           },
           {
-              type: "Merlot",
+              type: "TraderJoes",
               content: "I like to save money, but I’m willing to splurge here and there"
           },
           {
-              type: "Pinot",
+              type: "TraderJoes",
               content: "Saving money is a priority to me, I tend to go for the cheapest options when I shop"
           }
       ]
@@ -20,15 +20,15 @@ var quizQuestions = [
       question: "Do you prefer sweet or salty foods?",
       answers: [
           {
-              type: "Chardonnay",
+              type: "NotSweet",
               content: "I prefer a bag of chips over a chocolate bar"
           },
           {
-              type: "Merlot",
+              type: "Sweet",
               content: "I prefer a chocolate bar over a bag of chips"
           },
           {
-              type: "Pinot",
+              type: "MixSweet",
               content: "I like a mixture of both"
           }
       ]
@@ -37,15 +37,15 @@ var quizQuestions = [
       question: "What is your drink of choice?",
       answers: [
           {
-              type: "Chardonnay",
+              type: "Marg",
               content: "A margarita"
           },
           {
-              type: "Merlot",
+              type: "Vodka",
               content: "Vodka on the rocks"
           },
           {
-              type: "Pinot",
+              type: "Beer",
               content: "Beer"
           }
       ]
@@ -54,27 +54,27 @@ var quizQuestions = [
       question: "How do you take your coffee?",
       answers: [
           {
-              type: "Chardonnay",
+              type: "Black",
               content: "Black"
           },
           {
-              type: "Merlot",
+              type: "Light",
               content: "Light cream"
           },
           {
-              type: "Pinot",
+              type: "Light+",
               content: "Light cream & sugar"
           },
           {
-            type: "Pinot",
+            type: "Medium+",
             content: "Medium cream & sugar"
         },
         {
-            type: "Pinot",
+            type: "Heavy+",
             content: "Heavy cream & sugar"
         },
         {
-            type: "Pinot",
+            type: "na",
             content: "I don't drink coffee"
         }
       ]
@@ -83,19 +83,19 @@ var quizQuestions = [
       question: "What is your favorite candy?",
       answers: [
           {
-              type: "Chardonnay",
+              type: "Sour",
               content: "Sour Gummy Worms"
           },
           {
-              type: "Merlot",
+              type: "NotSour",
               content: "M&Ms"
           },
           {
-              type: "Pinot",
+              type: "Sour",
               content: "Sour skittles"
           },
           {
-            type: "Pinot",
+            type: "NotSour",
             content: "Starburst"
         }
       ]

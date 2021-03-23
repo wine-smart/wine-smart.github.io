@@ -7,7 +7,7 @@ import Question from './components/Question';
 // import React, { Component } from 'react';
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
-import Result from './components/Result';
+import Results from './Results'
 import logo from './svg/logo.svg';
 import './index.css';
 
@@ -23,7 +23,8 @@ class Quiz1 extends React.Component {
           answerOptions: [],
           answer: '',
           answersCount: {},
-          result: ''
+          result: '',
+          chosenAnswers: []
         };
     
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -75,8 +76,10 @@ class Quiz1 extends React.Component {
             ...state.answersCount,
             [answer]: (state.answersCount[answer] || 0) + 1
           },
-          answer: answer
+          answer: answer,
+          chosenAnswers: this.state.chosenAnswers.concat({answer})
         }));
+        console.log(this.state.chosenAnswers)
       }
     
       setNextQuestion() {
@@ -118,12 +121,13 @@ class Quiz1 extends React.Component {
             question={this.state.question}
             questionTotal={quizQuestions.length}
             onAnswerSelected={this.handleAnswerSelected}
+            chosenAnswers={this.chosenAnswers}
           />
         );
       }
     
       renderResult() {
-        return <Result quizResult={this.state.result} />;
+        return <Results chosenAnswers={this.state.chosenAnswers}  />;
       }
     
       render() {
@@ -150,7 +154,10 @@ class Quiz1 extends React.Component {
             </>
 
           <div className = "Quiz1">
-            {this.state.result ? this.renderResult() : this.renderQuiz()}
+            {this.state.result ? <Link to={{pathname: '/results', state: {chosenAnswers: this.state.chosenAnswers}}}>
+              <div>Click here to see your personalized results!</div>
+              </Link> 
+              : this.renderQuiz()}
           </div>
           </>
         );

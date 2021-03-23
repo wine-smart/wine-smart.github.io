@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { CSSTransitionGroup } from 'react-transition-group';
+import Results from '../Results';
+import { Link } from 'react-router-dom';
+
 
 function Result(props) {
+  console.log(props)
   return (
     <div
       className="container result"
@@ -13,15 +17,20 @@ function Result(props) {
       transitionAppear
       transitionAppearTimeout={500}
     >
-      <div>
+      {/* <div>
         You prefer <strong>{props.quizResult}</strong>!
-      </div>
+      </div> */}
+      <Link to={{pathname: '/results', state: {answers: props.chosenAnswers}}}>
+        <div>Click here to see your personalized results!</div>
+      </Link>
+      
+      
     </div>
   );
 }
 
-Result.propTypes = {
-  quizResult: PropTypes.string.isRequired
-};
+// Result.propTypes = {
+//   quizResult: PropTypes.string.isRequired
+// };
 
 export default Result;
