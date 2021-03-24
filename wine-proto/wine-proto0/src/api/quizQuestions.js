@@ -3,7 +3,7 @@ var quizQuestions = [
       question: "Would you describe yourself as a savvy spender or a penny pincher?",
       answers: [
           {
-              type: "MoreExpensive", // need to pick what this would correspond to 
+              type: "MoreExpensive", 
               content: "I never check the price tag when I shop!"
           },
           {
@@ -97,6 +97,64 @@ var quizQuestions = [
           {
             type: "NotSour",
             content: "Starburst"
+        }
+      ]
+  }, 
+  {
+    question: "How old are you?",
+    answers: [
+        {
+            type: "na",
+            content: "Under 18"
+        },
+        {
+            type: "na",
+            content: "18-20"
+        },
+        {
+            type: "na",
+            content: "21-30"
+        },
+        {
+          type: "na",
+          content: "31-40"
+        },
+        {
+          type: "na",
+          content: "41-60"
+        },
+        {
+          type: "na",
+          content: "61+"
+        }
+      ]
+  },
+  {
+    question: "What gender do you identify as?",
+    answers: [
+        {
+            type: "na",
+            content: "Male"
+        },
+        {
+            type: "na",
+            content: "Female"
+        },
+        {
+            type: "na",
+            content: "Transgender female"
+        },
+        {
+          type: "na",
+          content: "Transgender male"
+        },
+        {
+          type: "na",
+          content: "Non-binary"
+        },
+        {
+          type: "na",
+          content: "Prefer not to say"
         }
       ]
   }

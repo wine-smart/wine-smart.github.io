@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom'
 
 
 class Intro extends React.Component {
-    constructor(props){
-        super(props);        
-    }
 
     render() {
         return (
@@ -38,7 +35,6 @@ class Intro extends React.Component {
           
             <Card className = "instructions">
                 <Card.Body>
-                       {/* <Card.Title>Chardonnay</Card.Title> */}
                        <Card.Text>Take this 5 question quiz to find out what wines would best fit your preferences:</Card.Text>
                 </Card.Body>
             </Card>

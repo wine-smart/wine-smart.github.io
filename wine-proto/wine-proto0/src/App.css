@@ -59,6 +59,17 @@ body {
   text-align: center;
 }
 
+.results-card {
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.results-text {
+  padding-top: 20px;
+  padding-left: 30px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -3,183 +3,146 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardDeck, Navbar, Nav} from 'react-bootstrap';
 
+var firstChoice = '';
+var secondChoice = '';
+var thirdChoice = '';
+
 class Results extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-            chosenAnswers: "",
-            firstChoice: "",
-            secondChoice: "",
-            thirdChoice: ""
+            chosenAnswers: ""
         }
     }
-    componentDidMount(){
-        this.state.chosenAnswers = this.props.location.state;
-       // console.log(this.state.chosenAnswers)
-        this.findWine1();
-    }
-    findWine1(){
-        console.log(this.state.chosenAnswers)
-        console.log(this.state.chosenAnswers.chosenAnswers)        
-       
-       if(this.state.chosenAnswers[1] === {answer: "NotSweet"}){
-            //red wine here
-            if(this.state.chosenAnswers[2] === {answer: "Beer"}){
-                //low alc content
-               if (this.state.chosenAnswers[4] === "Sour"){
-                   //high acitidity
-                   this.setState(state => ({
-                       firstChoice: "Merlot",
-                       secondChoice: "Shiraz",
-                       thirdChoice: "Cabernet Sauvignon"
-                   }))
-               } else {
+
+    findWine1() {   
+       this.state.chosenAnswers = this.props.location.state;
+
+        if(this.state.chosenAnswers.chosenAnswers[1].answer === "NotSweet"){
+             //red wine here
+             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
+                 //low alc content
+                if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
+                    //high acitidity
+                    firstChoice = 'Merlot'
+                    secondChoice = 'Shiraz'
+                    thirdChoice = 'Cabernet Sauvigon'
+                } else {
                     //low acitidty
-                    this.setState(state => ({
-                        firstChoice: "Shiraz",
-                        secondChoice: "Merlot",
-                        thirdChoice: "Cabernet Sauvignon"
-                    }))
-               }
-            }else if(this.state.chosenAnswers[2] === {answer: "Marg"}){
-                //med alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
-                    //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Cabernet Sauvignon",
-                        secondChoice: "Merlot",
-                        thirdChoice: "Shiraz"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Cabernet Sauvignon",
-                        secondChoice: "Shiraz",
-                        thirdChoice: "Merlot"
-                    }))
+                    firstChoice = "Shiraz"
+                    secondChoice = "Merlot"
+                    thirdChoice = "Cabernet Sauvignon"
                 }
-            }else {
-                //high alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
+                 //med alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Shiraz",
-                        secondChoice: "Merlot",
-                        thirdChoice: "Cabernet Sauvignon"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Shiraz",
-                        secondChoice: "Cabernet Sauvignon",
-                        thirdChoice: "Merlot"
-                    }))
-                }
-            }
-       }else if (this.state.chosenAnswers[1] === {answer: "Sweet"}){
-            //white wine here
-            if(this.state.chosenAnswers[2] === {answer: "Beer"}){
-                //low alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Cabernet Sauvignon"
+                    secondChoice = "Merlot"
+                    thirdChoice = "Shiraz"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Cabernet Sauvignon"
+                    secondChoice = "Shiraz"
+                    thirdChoice = "Merlot"
+                 }
+             }else {
+                 //high alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Moscato",
-                        secondChoice: "Pinot Grigio",
-                        thirdChoice: "Chardonnay"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Moscato",
-                        secondChoice: "Sauvignon Blanc",
-                        thirdChoice: "Chardonnay"
-                    }))
-                }
-            }else if(this.state.chosenAnswers[2] === {answer: "Marg"}){
-                //med alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Shiraz"
+                    secondChoice = "Merlot"
+                    thirdChoice = "Cabernet Sauvignon"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Shiraz"
+                    secondChoice = "Cabernet Sauvignon"
+                    thirdChoice = "Merlot"
+                 }
+             }
+        }else if (this.state.chosenAnswers.chosenAnswers[1].answer === "Sweet"){
+             //white wine here
+             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
+                 //low alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Pinot Grigio",
-                        secondChoice: "Chardonnay",
-                        thirdChoice: "Sauvignon Blanc"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Pinot Grigio",
-                        secondChoice: "Chardonnay",
-                        thirdChoice: "Moscato"
-                    }))
-                }
-            }else {
-                //high alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Moscato"
+                    secondChoice = "Pinot Grigio"
+                    thirdChoice = "Chardonnay"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Moscato"
+                    secondChoice = "Sauvignon Blanc"
+                    thirdChoice = "Chardonnay"
+                 }
+             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
+                 //med alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Sauvignon Blanc",
-                        secondChoice: "Chardonnay",
-                        thirdChoice: "Pinot Grigio"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Sauvignon Blanc",
-                        secondChoice: "Chardonnay",
-                        thirdChoice: "Moscato"
-                    }))
-                }
-            }
-       }else {
-            //either
-            if(this.state.chosenAnswers[2] === {answer: "Beer"}){
-                //low alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Pinot Grigio"
+                    secondChoice = "Chardonnay"
+                    thirdChoice = "Sauvignon Blanc"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Pinot Grigio"
+                    secondChoice = "Chardonnay"
+                    thirdChoice = "Moscato"
+                 }
+             }else {
+                 //high alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "Sangria",
-                        secondChoice: "Moscato",
-                        thirdChoice: "Rose"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "Sangria",
-                        secondChoice: "Moscato",
-                        thirdChoice: "Rose"
-                    }))
-                }
-            }else if(this.state.chosenAnswers[2] === {answer: "Marg"}){
-                //med alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Sauvignon Blanc"
+                    secondChoice = "Chardonnay"
+                    thirdChoice = "Pinot Grigio"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Sauvignon Blanc"
+                    secondChoice = "Chardonnay"
+                    thirdChoice = "Moscato"
+                 }
+             }
+        }else {
+             //either
+             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
+                 //low alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "White Zinfandel",
-                        secondChoice: "Rose",
-                        thirdChoice: "Moscato"
-                    }))
-                } else {
-                     //low acitidty
-                     this.setState(state => ({
-                        firstChoice: "White Zinfandel",
-                        secondChoice: "Sangria",
-                        thirdChoice: "Moscato"
-                    }))
-                }
-            }else {
-                //high alc content
-                if (this.state.chosenAnswers[4] === "Sour"){
+                    firstChoice = "Sangria"
+                    secondChoice = "Moscato"
+                    thirdChoice = "Rose"
+                 } else {
+                    //low acitidty
+                    firstChoice = "Sangria"
+                    secondChoice = "Moscato"
+                    thirdChoice = "Rose"
+                 }
+             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
+                 //med alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
                     //high acitidity
-                    this.setState(state => ({
-                        firstChoice: "White Zinfandel",
-                        secondChoice: "Rose",
-                        thirdChoice: "Moscato"
-                    }))
-                } 
-            }
-       }
-    }
+                    firstChoice = "White Zinfandel"
+                    secondChoice = "Rose"
+                    thirdChoice = "Moscato"
+                 } else {
+                    //low acitidty
+                    firstChoice = "White Zinfandel"
+                    secondChoice = "Sangria"
+                    thirdChoice = "Moscato"
+                 }
+             }else {
+                 //high alc content
+                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
+                    //high acitidity
+                    firstChoice = "White Zinfandel"
+                    secondChoice = "Rose"
+                    thirdChoice = "Moscato"
+                 } 
+             }
+        }
+     }
+
     getShiraz(){
         return (
             <Card>
@@ -294,16 +257,16 @@ class Results extends React.Component {
             return this.getChardonnay();
         }
     }
+
     getResults(){
-        this.findWine1();
-        console.log(this.state)
+        this.findWine1()
         return (
             <>
-            <p>Recommendations based on AI</p>
-            <CardDeck>
-                {this.getWine(this.state.firstChoice)}
-                {this.getWine(this.state.secondChoice)}
-                {this.getWine(this.state.thirdChoice)}
+            <p className = "results-text">Based on your responses, you might like the following wines:</p>
+            <CardDeck className = "results-card">
+                {this.getWine(firstChoice)}
+                {this.getWine(secondChoice)}
+                {this.getWine(thirdChoice)}
             </CardDeck>
             </>
         )

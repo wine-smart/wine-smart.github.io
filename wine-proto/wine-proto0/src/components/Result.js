@@ -20,17 +20,13 @@ function Result(props) {
       {/* <div>
         You prefer <strong>{props.quizResult}</strong>!
       </div> */}
-      <Link to={{pathname: '/results', state: {answers: props.chosenAnswers}}}>
+      {/* <Link to={{pathname: '/results', state: {answers: props.chosenAnswers}}}>
         <div>Click here to see your personalized results!</div>
-      </Link>
+      </Link> */}
       
       
     </div>
   );
 }
-
-// Result.propTypes = {
-//   quizResult: PropTypes.string.isRequired
-// };
 
 export default Result;

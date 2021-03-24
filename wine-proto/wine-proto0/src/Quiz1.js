@@ -1,14 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Button, Navbar, Nav} from 'react-bootstrap';
-import Question from './components/Question';
+import {Navbar, Nav} from 'react-bootstrap';
 
-// import React, { Component } from 'react';
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Results from './Results'
-import logo from './svg/logo.svg';
 import './index.css';
 
 
@@ -24,40 +21,23 @@ class Quiz1 extends React.Component {
           answer: '',
           answersCount: {},
           result: '',
-          chosenAnswers: []
+          chosenAnswers: [],
+          firstChoice: '',
+          secondChoice: '',
+          thirdChoice: ''
         };
     
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
       }
     
       componentDidMount() {
-        const shuffledAnswerOptions = quizQuestions.map(question =>
-          this.shuffleArray(question.answers)
+        const answerOptions = quizQuestions.map(question =>
+          question.answers
         );
         this.setState({
           question: quizQuestions[0].question,
-          answerOptions: shuffledAnswerOptions[0]
+          answerOptions: answerOptions[0]
         });
-      }
-    
-      shuffleArray(array) {
-        var currentIndex = array.length,
-          temporaryValue,
-          randomIndex;
-    
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-          // Pick a remaining element...
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-    
-          // And swap it with the current element.
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
-        }
-    
-        return array;
       }
     
       handleAnswerSelected(event) {
@@ -79,7 +59,6 @@ class Quiz1 extends React.Component {
           answer: answer,
           chosenAnswers: this.state.chosenAnswers.concat({answer})
         }));
-        console.log(this.state.chosenAnswers)
       }
     
       setNextQuestion() {
@@ -131,6 +110,7 @@ class Quiz1 extends React.Component {
       }
     
       render() {
+
         return (
           <>
           <>
@@ -154,87 +134,14 @@ class Quiz1 extends React.Component {
             </>
 
           <div className = "Quiz1">
-            {this.state.result ? <Link to={{pathname: '/results', state: {chosenAnswers: this.state.chosenAnswers}}}>
-              <div>Click here to see your personalized results!</div>
-              </Link> 
+            {this.state.result ? <Redirect to={{pathname: '/results', state: {chosenAnswers: this.state.chosenAnswers}}}>
+              {/* <div>Click here to see your personalized results!</div> */}
+              </Redirect> 
               : this.renderQuiz()}
           </div>
           </>
         );
+
       }
-
-    // keeping this in case we need it 
-    
-    // constructor(props){
-    //     super(props);
-    // }
-    // render() {
-    //     return (
-    //         <>
-    //         <>
-    //         <Navbar bg="light" variant="light">
-    //             <Link to="/#home">
-    //                 <Navbar.Brand href="#home">WineSmart</Navbar.Brand>
-    //             </Link>
-    //             <Nav className="mr-auto">
-            
-    //             <Link to="/#home">
-    //                 <Nav.Link href="#home">Home</Nav.Link>
-    //             </Link>
-    //             <Link to="/quiz1">
-    //                 <Nav.Link href="#features">Take the Quiz!</Nav.Link>
-    //             </Link>
-    //             <Link to="/results">
-    //                 <Nav.Link href="#recommendations">Recommendations</Nav.Link>
-    //             </Link> 
-    //             </Nav>
-    //         </Navbar>
-    //         </>
-
-    //             <Form>
-    //                 <Form.Group size="md" controlId = "email">
-    //                     <Form.Label>Email address</Form.Label>
-    //                     <Form.Control type="email" placeholder="name@example.com" />
-    //                 </Form.Group>
-    //                 <Form.Group controlId="genderid">
-    //                     <Form.Label>Gender Identity</Form.Label>
-    //                     <Form.Control as="Select">
-    //                         <option></option>
-    //                         <option>Female</option>
-    //                         <option>Male</option>
-    //                         <option>Other</option>
-    //                         <option>I prefer not to answer</option>
-    //                     </Form.Control>
-    //                 </Form.Group>
-    //                 <Form>
-
-    //                     <div key={`default-radio`} className="mb-3">
-    //                     <Form.Check 
-    //                         type={'radio'}
-    //                         id={`default-raio`}
-    //                         label={`default radio`}
-    //                     />
-
-    //                     <Form.Check 
-    //                         type={'radio'}
-    //                         id={`default-raio`}
-    //                         label={`default radio`}
-    //                     />
-
-    //                     <Form.Check 
-    //                         type={'radio'}
-    //                         id={`default-raio`}
-    //                         label={`default radio`}
-    //                     />
-    //                     </div>
-
-    //                 </Form>
-    //                 <Link to="/results">
-    //                     <Button type="submit">Submit</Button>
-    //                 </Link>
-    //             </Form>
-    //         </>
-    //     )
-    // }
 }
 export default Quiz1;
