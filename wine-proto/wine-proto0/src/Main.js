@@ -5,6 +5,11 @@ import Intro from './Intro'
 import Quiz1 from './Quiz1'
 import Results from './Results'
 
+// styles
+import "assets/css/bootstrap.min.css";
+import "assets/css/paper-kit.css";
+import "assets/demo/demo.css";
+
 const Main = () => {
     return (
         <Switch>

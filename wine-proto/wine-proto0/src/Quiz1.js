@@ -1,12 +1,16 @@
 import React from 'react'
-import { Link, Redirect} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav} from 'react-bootstrap';
-
+import { Redirect } from 'react-router-dom';
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Results from './Results'
+
+import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import './index.css';
+import "assets/css/bootstrap.min.css";
+import "assets/css/paper-kit.css";
+import "assets/demo/demo.css";
+
 
 
 class Quiz1 extends React.Component {
@@ -29,6 +33,7 @@ class Quiz1 extends React.Component {
     
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
       }
+      
     
       componentDidMount() {
         const answerOptions = quizQuestions.map(question =>
@@ -113,32 +118,12 @@ class Quiz1 extends React.Component {
 
         return (
           <>
-          <>
-            <Navbar bg="light" variant="light">
-                <Link to="/#home">
-                    <Navbar.Brand href="#home">WineSmart</Navbar.Brand>
-                </Link>
-                <Nav className="mr-auto">
-            
-                <Link to="/#home">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                </Link>
-                <Link to="/quiz1">
-                    <Nav.Link href="#features">Take the Quiz!</Nav.Link>
-                </Link>
-                <Link to="/results">
-                    <Nav.Link href="#recommendations">Recommendations</Nav.Link>
-                </Link> 
-                </Nav>
-            </Navbar>
-            </>
-
-          <div className = "Quiz1">
-            {this.state.result ? <Redirect to={{pathname: '/results', state: {chosenAnswers: this.state.chosenAnswers}}}>
-              {/* <div>Click here to see your personalized results!</div> */}
-              </Redirect> 
-              : this.renderQuiz()}
-          </div>
+            <ExamplesNavbar />
+            <div className = "quiz-container">
+              {this.state.result ? <Redirect to={{pathname: '/results', state: {chosenAnswers: this.state.chosenAnswers}}}>
+                  </Redirect> 
+                  : this.renderQuiz()}
+            </div>
           </>
         );
 
