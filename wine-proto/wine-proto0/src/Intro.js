@@ -28,8 +28,7 @@ class Intro extends React.Component {
                     one-of-a-kind algorithm matches users to wines they would potentially 
                     like based on their responses to our 30-second quiz. Each recommendation
                     comes with a full description of the wine including food pairing 
-                    suggestions, price, and where to purchase. What are you waiting for?
-                    Let's get started! 
+                    suggestions, price, and where to purchase. What more could you ask for?
                   </h5>
                   <br />
                   <Link to="/quiz1">
