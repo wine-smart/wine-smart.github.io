@@ -2,10 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardDeck, Navbar, Nav, Image} from 'react-bootstrap';
+import { array } from 'prop-types';
 
 var firstChoice = '';
 var secondChoice = '';
 var thirdChoice = '';
+
+var point_map = new Map([['Merlot', 0], ['Shiraz', 0], ['Cabernet Sauvignon', 0], ["Moscato", 0], ["Pinot Grigio", 0], 
+                        ["Chardonnay", 0], ["Sauvignon Blanc", 0], ["Sangria", 0], ["White Zinfandel", 0]]);
 
 class Results extends React.Component {
     constructor(props){
@@ -20,128 +24,41 @@ class Results extends React.Component {
     findWine1() {   
         this.state.chosenAnswers = this.props.location.state;
         this.state.expense = this.state.chosenAnswers.chosenAnswers[0].answer;
-        if(this.state.chosenAnswers.chosenAnswers[1].answer === "NotSweet"){
-             //red wine here
-             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
-                 //low alc content
-                if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = 'Merlot'
-                    secondChoice = 'Shiraz'
-                    thirdChoice = 'Cabernet Sauvigon'
-                } else {
-                    //low acitidty
-                    firstChoice = "Shiraz"
-                    secondChoice = "Merlot"
-                    thirdChoice = "Cabernet Sauvignon"
-                }
-             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
-                 //med alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Cabernet Sauvignon"
-                    secondChoice = "Merlot"
-                    thirdChoice = "Shiraz"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Cabernet Sauvignon"
-                    secondChoice = "Shiraz"
-                    thirdChoice = "Merlot"
-                 }
-             }else {
-                 //high alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Shiraz"
-                    secondChoice = "Merlot"
-                    thirdChoice = "Cabernet Sauvignon"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Shiraz"
-                    secondChoice = "Cabernet Sauvignon"
-                    thirdChoice = "Merlot"
-                 }
-             }
-        }else if (this.state.chosenAnswers.chosenAnswers[1].answer === "Sweet"){
-             //white wine here
-             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
-                 //low alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Moscato"
-                    secondChoice = "Pinot Grigio"
-                    thirdChoice = "Chardonnay"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Moscato"
-                    secondChoice = "Sauvignon Blanc"
-                    thirdChoice = "Chardonnay"
-                 }
-             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
-                 //med alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Pinot Grigio"
-                    secondChoice = "Chardonnay"
-                    thirdChoice = "Sauvignon Blanc"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Pinot Grigio"
-                    secondChoice = "Chardonnay"
-                    thirdChoice = "Moscato"
-                 }
-             }else {
-                 //high alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Sauvignon Blanc"
-                    secondChoice = "Chardonnay"
-                    thirdChoice = "Pinot Grigio"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Sauvignon Blanc"
-                    secondChoice = "Chardonnay"
-                    thirdChoice = "Moscato"
-                 }
-             }
-        }else {
-             //either
-             if(this.state.chosenAnswers.chosenAnswers[2].answer === "Beer"){
-                 //low alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "Sangria"
-                    secondChoice = "Moscato"
-                    thirdChoice = "Rose"
-                 } else {
-                    //low acitidty
-                    firstChoice = "Sangria"
-                    secondChoice = "Moscato"
-                    thirdChoice = "Rose"
-                 }
-             }else if(this.state.chosenAnswers.chosenAnswers[2].answer === "Marg"){
-                 //med alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "White Zinfandel"
-                    secondChoice = "Rose"
-                    thirdChoice = "Moscato"
-                 } else {
-                    //low acitidty
-                    firstChoice = "White Zinfandel"
-                    secondChoice = "Sangria"
-                    thirdChoice = "Moscato"
-                 }
-             }else {
-                 //high alc content
-                 if (this.state.chosenAnswers.chosenAnswers[4].answer === "Sour"){
-                    //high acitidity
-                    firstChoice = "White Zinfandel"
-                    secondChoice = "Rose"
-                    thirdChoice = "Moscato"
-                 } 
-             }
+
+        var answers = this.state.chosenAnswers;
+        switch (answers.chosenAnswers[1].answer) {
+            case "NotSweet":
+                this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot"], 2);
+                break;
+            case "Sweet":
+                this.incrementPoints(["Pinot Grigio", "Sauvignon Blanc", "Moscato", "White Zinfandel"], 2);
+                break;
+            default:
+                this.incrementPoints(["Sangria"], 2);
         }
+        switch (answers.chosenAnswers[2].answer) {
+            case "Beer":
+                // low alc content
+                this.incrementPoints(["Merlot", "Shiraz", "Cabernet Sauvignon"], 1);
+                break;
+            case "Marg":
+                this.incrementPoints(["Cabernet Sauvignon", "Merlot", "Shiraz"], 1);
+                break;
+            default:
+                this.incrementPoints(["Merlot"], 0);
+        }
+
+        switch(answers.chosenAnswers[4].answer) {
+            // low to high acidity
+            case "Sour":
+                this.incrementPoints(["White Zinfandel"], 5);
+                break;
+            case "NotSour":
+                this.incrementPoints(["Moscato"], 5);
+        }
+
+        // Sets first, second, and third as needed
+        this.setTopChoices();
      }
 
     getShiraz(){
@@ -426,5 +343,19 @@ class Results extends React.Component {
             </>
         )
     }
+
+    // Helper functions for the wine recommendation algorithm
+    incrementPoints(typesToIncrement, incrementValue) {
+        for (let i = 0; i < typesToIncrement.length; i++) {
+            point_map.set(typesToIncrement[i], point_map.get(typesToIncrement[i]) + incrementValue);
+        }
+    }
+    setTopChoices() {
+        var point_array = Array.from(point_map);
+        point_array.sort(function(a,b) { return b[1] - a[1] })
+        firstChoice = point_array[0][0];
+        secondChoice = point_array[1][0];
+        thirdChoice = point_array[2][0];
+    }
 }
- export default Results;
+export default Results;
