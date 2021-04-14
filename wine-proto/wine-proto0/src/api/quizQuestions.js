@@ -58,10 +58,6 @@ var quizQuestions = [
               content: "Black"
           },
           {
-              type: "Light",
-              content: "Light cream"
-          },
-          {
               type: "Light+",
               content: "Light cream & sugar"
           },
@@ -100,6 +96,23 @@ var quizQuestions = [
         }
       ]
   }, 
+  {
+    question: "Which of these meals would you prefer?",
+    answers: [
+        {
+            type: "Meat",
+            content: "Meaty, savory stew"
+        },
+        {
+            type: "Cheese",
+            content: "Creamy, herbal shrimp pasta"
+        },
+        {
+            type: "Asian",
+            content: "Pan-asian stir fried noodles"
+        }
+    ]
+},
   {
     question: "How old are you?",
     answers: [

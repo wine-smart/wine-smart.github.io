@@ -57,35 +57,56 @@ class Results extends React.Component {
         var answers = this.state.chosenAnswers;
         switch (answers.chosenAnswers[1].answer) {
             case "NotSweet":
-                this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot"], 2);
+                this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot", "Pinot Grigio", "White Zinfandel", "Chardonnay"], 2);
                 break;
             case "Sweet":
-                this.incrementPoints(["Pinot Grigio", "Sauvignon Blanc", "Moscato", "White Zinfandel"], 2);
+                this.incrementPoints(["Sauvignon Blanc", "Sangria", "Moscato"], 2);
                 break;
-            default:
-                this.incrementPoints(["Sangria"], 2);
         }
         switch (answers.chosenAnswers[2].answer) {
             case "Beer":
                 // low alc content
-                this.incrementPoints(["Merlot", "Shiraz", "Cabernet Sauvignon"], 1);
+                this.incrementPoints(["Moscato", "Sangria"], 2);
+                this.incrementPoints(["White Zinfandel", "Pinot Grigio"], 1);
                 break;
             case "Marg":
-                this.incrementPoints(["Cabernet Sauvignon", "Merlot", "Shiraz"], 1);
+                // med
+                this.incrementPoints(["Merlot", "Sauvignon Blanc", "Chardonnay"], 1);
                 break;
             default:
-                this.incrementPoints(["Merlot"], 0);
+                // high alc content
+                this.incrementPoints(["Shiraz", "Cabernet Sauvignon"], 1);
         }
-
+        switch(answers.chosenAnswers[3].answer) {
+            // low to high acidity
+            case "Black":
+                this.incrementPoints(["Shiraz"], 3);
+                break;
+            case "Light+":
+                this.incrementPoints(["Cabernet Sauvignon"], 3);
+            case "Medium+":
+                this.incrementPoints(["Merlot"], 3);
+            default: // white/rose for less tannins
+                this.incrementPoints(["Pinot Grigio", "White Zinfandel", "Chardonnay", "Moscato", "Sangria", "Sauvignon Blanc"], 3);
+        }
         switch(answers.chosenAnswers[4].answer) {
             // low to high acidity
             case "Sour":
-                this.incrementPoints(["White Zinfandel"], 5);
+                this.incrementPoints(["Sauvignon Blanc", "Pinot Grigio", "Merlot", "Cabernet Sauvignon", "Shiraz"], 2);
                 break;
             case "NotSour":
-                this.incrementPoints(["Moscato"], 5);
+                this.incrementPoints(["White Zinfandel", "Chardonnay", "Moscato", "Sangria"], 2);
         }
-
+        switch(answers.chosenAnswers[5].answer) {
+            // Food pairings
+            case "Cheese":
+                this.incrementPoints(["Pinot Grigio", "Chardonnay", "Sauvignon Blanc", "White Zinfandel"], 3);
+                break;
+            case "Asian":
+                this.incrementPoints(["Moscato", "Sangria"], 3);
+            default:
+                this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot"], 3);
+        }
         // Sets first, second, and third as needed
         this.setTopChoices();
      }
