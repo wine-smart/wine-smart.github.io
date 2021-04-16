@@ -53,7 +53,7 @@ class Intro extends React.Component {
                       <h4 className="info-title">Ease</h4>
                       <p className="description">
                         Our algorithm is designed to match you to the perfect wine 
-                        with just 5 short questions.
+                        with just 6 short questions.
                       </p>
                     </div>
                   </div>
