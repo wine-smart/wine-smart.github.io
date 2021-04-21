@@ -26,7 +26,7 @@ class Intro extends React.Component {
                   <h5 className="description">
                     Wine Smart is an app for wine-junkies and newbies alike. Our 
                     one-of-a-kind algorithm matches users to wines they would potentially 
-                    like based on their responses to our 30-second quiz. Each recommendation
+                    like based on their responses to our 60-second quiz. Each recommendation
                     comes with a full description of the wine including food pairing 
                     suggestions, price, and where to purchase. What more could you ask for?
                   </h5>
@@ -36,7 +36,7 @@ class Intro extends React.Component {
                         className="btn-round"
                         color="info"
                         >
-                        Go to quiz
+                        Take the discovery quiz
                     </Button>
                   </Link>
                 </Col>
@@ -53,7 +53,7 @@ class Intro extends React.Component {
                       <h4 className="info-title">Ease</h4>
                       <p className="description">
                         Our algorithm is designed to match you to the perfect wine 
-                        with just 6 short questions.
+                        with just 10 short questions.
                       </p>
                     </div>
                   </div>

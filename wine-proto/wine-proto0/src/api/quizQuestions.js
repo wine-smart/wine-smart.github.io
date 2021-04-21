@@ -112,7 +112,7 @@ var quizQuestions = [
             content: "Pan-asian stir fried noodles"
         }
     ]
-},
+  },
   {
     question: "How old are you?",
     answers: [
@@ -170,6 +170,48 @@ var quizQuestions = [
           content: "Prefer not to say"
         }
       ]
+  },
+  {
+    question: "Have you used a recommendation system before?",
+    answers: [
+        {
+            type: "Yes/Happy",
+            content: "Yes, and I was happy with my recommendations"
+        },
+        {
+            type: "Yes/NotHappy",
+            content: "Yes, but I was not happy with my recommendations"
+        },
+        {
+            type: "No/Familiar",
+            content: "No, but I'd heard of that concept before using Wine Smart"
+        },
+        {
+            type: "No/NotFamiliar",
+            content: "No, this is my first time"
+        }
+    ]
+  },
+  {
+    question: "How do you feel about an algorithm recommending products to you?",
+    answers: [
+        {
+            type: "Open",
+            content: "I'm completely open to it"
+        },
+        {
+            type: "Hesitant",
+            content: "I have hesitations, but I'd still try it"
+        },
+        {
+            type: "Indifferent",
+            content: "I have no negative or positive feelings towards it"
+        },
+        {
+            type: "Against",
+            content: "I would not be open to trying it"
+        }
+    ]
   }
 ];
 

@@ -57,7 +57,7 @@ function LandingPageHeader() {
         <Container>
           <div className="motto text-center">
             <h1>Wine Smart</h1>
-            <h3>Welcome to the future of wine tasting.</h3>
+            <h3>Discover new wines in just a few clicks.</h3>
             <br />
             <Link2  to="learn-more" spy={true} smooth={true}>
               <Button
@@ -70,7 +70,7 @@ function LandingPageHeader() {
             </Link2>
             <Link1 to="/quiz1">
               <Button className="btn-round" color="neutral" type="button" outline>
-                Take the quiz
+                Take the discovery quiz
               </Button>
             </Link1>
           </div>

@@ -12,7 +12,6 @@ import "assets/css/paper-kit.css";
 import "assets/demo/demo.css";
 
 
-
 class Quiz1 extends React.Component {
     constructor(props) {
         super(props);

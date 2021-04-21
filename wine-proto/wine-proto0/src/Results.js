@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, CardDeck, Navbar, Nav, Image} from 'react-bootstrap';
+import './index.css';
+import {Card, CardDeck, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 
@@ -32,6 +33,17 @@ import cheapRoseImg from "./assets/img/cheap-rose.png";
 import mediumRoseImg from "./assets/img/medium-rose.png";
 import expensiveRoseImg from "./assets/img/expensive-rose.png";
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 
 var firstChoice = '';
 var secondChoice = '';
@@ -39,6 +51,47 @@ var thirdChoice = '';
 
 var point_map = new Map([['Merlot', 0], ['Shiraz', 0], ['Cabernet Sauvignon', 0], ["Moscato", 0], ["Pinot Grigio", 0], 
                         ["Chardonnay", 0], ["Sauvignon Blanc", 0], ["Sangria", 0], ["White Zinfandel", 0]]);
+
+const StyledRating = withStyles({
+  iconFilled: {
+    color: '#ff6d75',
+  },
+  iconHover: {
+    color: '#ff3d47',
+  },
+})(Rating);
+
+const customIcons = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon />,
+    label: 'Very Dissatisfied',
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon />,
+    label: 'Dissatisfied',
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon />,
+    label: 'Neutral',
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon />,
+    label: 'Satisfied',
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon />,
+    label: 'Very Satisfied',
+  },
+};
+
+function IconContainer(props) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
+IconContainer.propTypes = {
+  value: PropTypes.number.isRequired,
+};
 
 class Results extends React.Component {
     constructor(props){
@@ -120,21 +173,36 @@ class Results extends React.Component {
             img = mediumShirazImg
             link = "https://www.vivino.com/penfolds-bin-28-kalimna-shiraz/w/1244?year=2015&price_id=14869784&change_ship_to_country_code=us&change_ship_to_state_code=CA"
             price = "39.99"
-            text = 'A deep dark cherry-red, there are plummy fruits meshed with sweet spices like cinnamon. Plenty of layered flavors that pair well with beef, lamb, and poultry.'
+            text = 'This cherry-red Shiraz offers plummy fruits meshed with sweet spices. Plenty of layered flavors that pair well with beef, lamb, and poultry.'
         } else if (this.state.expense === "Expensive"){
             img = expensiveShirazImg
             link = "https://drinkdispatch.com/mollydooker-velvet-glove-shiraz-2018/?utm_source=google&utm_medium=cpc&adpos=&scid=scplp4443&sc_intid=4443&gclid=CjwKCAjwjbCDBhAwEiwAiudByyOReS3Ik6uIgLsKXL5JgwbL0m1E8r7C4ym-rBHrBehc9pzY0eSkuxoCoqYQAvD_BwE"
             price = "180.00"
-            text = 'Black plum, blueberries and roasted coffee intermingle in this Shiraz. Fruit-forward, with the oak elements of vanilla, mocha and cedar pushed into the background.'
+            text = 'Black plum, blueberries and roasted coffee intermingle in this luxury Shiraz. Plenty of layered flavors that pair well with beef, lamb, and poultry.'
         }
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Shiraz</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Shiraz</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="shiraz-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -147,7 +215,7 @@ class Results extends React.Component {
             img = mediumCabernetImg
             link = "https://www.crownwineandspirits.com/silverado-estate-grown-cabernet-sauvignon-750ml/"
             price = "47.99"
-            text = 'A red wine from Napa Valley, this wine offers a semi-dry burst of plums, herbs, rich dark chocolate, and espresso. A great buy while still maintaining an affordable price.'
+            text = 'This Napa Valley red wine offers a semi-dry burst of plums, herbs, rich dark chocolate, and espresso. Pairs well with beef, lamb, and poultry.'
         } else if (this.state.expense === "Expensive"){
             img = expensiveCabernetImg
             link = "https://silveroak.com/shop/p/2016-napa-valley-cabernet-sauvignon/?gclid=CjwKCAjwjbCDBhAwEiwAiudBy8u9_R876mP0ajpZTQwb_0xXuaz9aYR6prC9g5lcIDPSNUPJgX7CiRoCKpQQAvD_BwE"
@@ -157,11 +225,26 @@ class Results extends React.Component {
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Cabernet Sauvignon</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Cabernet Sauvignon</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="cabernet-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -169,26 +252,41 @@ class Results extends React.Component {
         let img = cheapMerlotImg
         let link = "https://www.aldi.us/en/products/alcohol/red-wine/detail/ps/p/winking-owl-merlot/"
         let price = "2.95"
-        let text = 'This Merlot offers a subtle mix of black cherry, mixed berries, and a hint of vanilla. Pairs well with steak, pork, and pasta.'
+        let text = 'This Merlot offers a subtle mix of black cherry, mixed berries, as well as a hint of vanilla. This earty wine pairs well with steak, pork, and pasta.'
         if (this.state.expense === "Medium"){
             img = mediumMerlotImg
             link = "https://www.wine.com/product/merryvale-merlot-2015/354338?state=CA&s=GoogleBase_CSE_354338_PSNEW21_type_Wine_RedWine_Merlot_10913&region_id=000003"
             price = "47.99"
-            text = 'This Merlot has a fantastic blackberry and rosemary nose, and a good tannic finish. This wine pairs well with beef, lamb, and veal.'
+            text = 'This Merlot has a fantastic blackberry and rosemary nose, as well as a good tannic finish. This wine pairs well with beef, lamb, and veal.'
         } else if (this.state.expense === "Expensive"){
             img = expensiveMerlotImg
             link = "https://www.estatewinebrokers.com/pahlmeyer-merlot-napa-valley-2006-750ml/?gclid=CjwKCAjwjbCDBhAwEiwAiudBy-CKQUyd4nvozxNUc9yPcQQ99naAotwRhKKmxRP7k2VlZxFhlanpiBoCwhkQAvD_BwE"
             price = "95.00"
-            text = 'This Merlot exudes chocolatey sweetness, mocha, cola, black cherry, and plum scents.'
+            text = 'This Merlot exudes chocolatey sweetness, mocha, cola, black cherry, and plum scents. Pairs well with steak, pork, lamb, and pasta.'
         }
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Merlot</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Merlot</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="merlot-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -201,21 +299,36 @@ class Results extends React.Component {
             img = mediumPinotImg
             link = "https://www.instacart.com/landing?product_id=17313984&utm_term=pbi-0&utm_campaign=pinot-grigio-2016_hmart&utm_source=instacart_google&utm_medium=shopping_free_listing&utm_content=productid-17313984_retailerid=119&zipcode_guess=61820"
             price = "32.99"
-            text = 'This Pinot Grigio is known for its straw yellow color, clean intense aroma, and dry golden apple taste. Pairs well with fresh cheeses, seafood, pasta, rice dishes, and white meats.'
+            text = 'This Pinot Grigio is known for its straw yellow color, clean aroma, and dry golden apple taste. Pairs well with fresh cheeses, seafood, and white meats.'
         } else if (this.state.expense === "Expensive"){
             img = expensivePinotImg
             link = "https://www.kogodwine.com/products/1993-zind-humbrecht-clos-jebsal-pinot-gris"
             price = "147.00"
-            text = 'This French Pinot Grigio pairs well with dried fruit and candid nuts. It has a perfect blend of both sweetness and acidity. '
+            text = 'This French Pinot Grigio offers a mouthful of huge, honeyed, fruit buttressed by vibrant acitidy. Pairs well with dried fruit and candid nuts.'
         }
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Pinot Grigio</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Pinot Grigio</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="pinot-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -238,11 +351,26 @@ class Results extends React.Component {
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Chardonnay</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Chardonnay</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="chardonnay-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -255,21 +383,36 @@ class Results extends React.Component {
             img = mediumSauvignonImg
             link = "https://www.wine.com/product/spottswoode-sauvignon-blanc-2019/623598"
             price = "47.99"
-            text = 'This wine offers an inviting and expressing taste of white peach, tangerine peel, and quiava, with orange blossoms. This smooth and rich wine pairs well with seafood.'
+            text = 'This wine offers an inviting taste of white peach, tangerine peel, and quiava, with orange blossoms. This smooth and rich wine pairs well with seafood.'
         } else if (this.state.expense === "Expensive"){
             img = expensiveSauvignonImg
             link = "https://www.wine.com/product/gaja-alteni-di-brassica-sauvignon-blanc-2017/578743?state=CA&s=GoogleBase_CSE_578743_PSNEW21_type_Wine_WhiteWine_SauvignonBlanc_1990&region_id=000003&utm_source=google&utm_medium=cpc&utm_term=&utm_campaign=Google_Shopping_Smart_Wine&showpromo=true&promo=PSNEW21&gclid=CjwKCAjwjbCDBhAwEiwAiudBywQ0ViTHRKXhERDjohdM7EvKFWvlIMcJQ7MsIgkma7nziOGa2leXbBoCnYgQAvD_BwE&gclsrc=aw.ds#"
             price = "155.00"
-            text = 'This wine has unique notes of papaya and pineapple while also having vegetal hints of sage. This wine pairs well with seafood like snapper, sushi, and goat cheese. '
+            text = 'This wine has unique notes of papaya and pineapple while also having vegetal hints of sage. Pairs well with seafood like snapper, sushi, and goat cheese. '
         }
         return (
-            <Card>
-                <Card.Img variant="top" src={img} />
-                <Card.Body>
-                        <Card.Title>Sauvignon Blanc</Card.Title>
-                           <Card.Text>{text}</Card.Text>
-                           <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                    </Card.Body>
+                <Card>
+                    <Card.Img variant="top" src={img} />
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>
+                            <h5>Sauvignon Blanc</h5>
+                            <p>{text}</p>
+                        </ListGroupItem>
+                        <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                        </ListGroupItem>
+                        <ListGroupItem>
+                            <Box component="fieldset" mb={0} borderColor="transparent">
+                                <p>Were you satisfied with this recommendation?</p>
+                                <Rating
+                                    name="sauvignon-rating"
+                                    defaultValue={4}
+                                    getLabelText={(value) => customIcons[value].label}
+                                    IconContainerComponent={IconContainer}
+                                />
+                            </Box>
+                        </ListGroupItem>
+                    </ListGroup>
                 </Card>
             )
         
@@ -293,11 +436,26 @@ class Results extends React.Component {
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Sangria</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Sangria</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="sangria-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -310,21 +468,36 @@ class Results extends React.Component {
             img = mediumMoscatoImg
             link = "https://www.vivino.com/tenute-dettori-moscadeddu-badde-nigolosu/w/1237874?year=2015&price_id=23077606"
             price = "39.40"
-            text = 'This Moscato offers sweet aromas of peaches, fresh grapes, orange blossoms, and crisp lemons. This acidic and lightly wine carbonated is a great dessert wine.'
+            text = 'This Moscato offers aromas of peach, fresh grape, orange blossom, and crisp lemon. This acidic and lightly carbonated wine pairs well with desserts.'
         } else if (this.state.expense === "Expensive"){
             img = expensiveMoscatoImg
             link = "https://www.liquorstore-online.com/65112/moscato-dasti"
             price = "49.99"
-            text = "This Moscato holds strong notes of peaches, rose petals, and ginger. It is sweet and sparkling to taste with a mild acidity."
+            text = "This Moscato holds strong notes of sweet peaches, rose petals, and ginger. It is sweet and sparkling to the taste with a subtle hint of acidity."
         }
         return (
             <Card>
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>Moscato</Card.Title>
-                       <Card.Text>{text}</Card.Text>
-                       <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Moscato</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="moscato-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
             </Card>
         )
     }
@@ -332,7 +505,7 @@ class Results extends React.Component {
         let img = cheapRoseImg
         let link = "https://www.aldi.us/en/products/alcohol/rose-wines/detail/ps/p/winking-owl-white-zinfandel/"
         let price = "2.95"
-        let text = 'This Rose offers cranberry and watermelon flavors with notes of fresh strawberry and cherry. Pairs well with salads as well as spicy Asian and Latin cuisine.'
+        let text = 'This Rose offers cranberry and watermelon flavors with notes of fresh strawberry and cherry. Pairs well with salads and spicy Asian and Latin cuisine.'
         if (this.state.expense === "Medium"){
             img = mediumRoseImg
             link = "https://www.liquorstore-online.com/98540/five-oaks-white-zinfandel-nv"
@@ -342,18 +515,33 @@ class Results extends React.Component {
             img = expensiveRoseImg
             link = "https://www.vivino.com/kunde-estate-winery-and-vineyards-reserve-zinfandel-century-vines/w/1780684?year=2018"
             price = "139.99"
-            text = 'This Sonoma Valley red wine has oaky notes of chocolate and tobacco. It also encapsulates blackberry notes as well as red fruits like raspberries and cherry. '
+            text = 'This Sonoma Valley red wine has oaky notes of chocolate and tobacco. It encapsulates blackberry notes as well as red fruits like raspberries and cherry. '
         }
 
         if (this.state.expense === "Cheap") {
             return (
                 <Card>
                     <Card.Img variant="top" src={img} />
-                    <Card.Body>
-                        <Card.Title>Rose</Card.Title>
-                           <Card.Text>{text}</Card.Text>
-                           <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>Rose</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="rose-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
                 </Card>
             )
         }
@@ -361,11 +549,26 @@ class Results extends React.Component {
             return (
                 <Card>
                     <Card.Img variant="top" src={img} />
-                    <Card.Body>
-                        <Card.Title>White Zinfandel</Card.Title>
-                        <Card.Text>{text}</Card.Text>
-                        <Card.Link target='_blank' href = {link}>Buy Now $({price})</Card.Link>
-                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                        <h5>White Zinfandel</h5>
+                        <p>{text}</p>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Card.Link variant="bottom" target='_blank' href = {link}>Buy Now $({price})</Card.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Box component="fieldset" mb={0} borderColor="transparent">
+                            <p>Were you satisfied with this recommendation?</p>
+                            <Rating
+                                name="zinfandel-rating"
+                                defaultValue={4}
+                                getLabelText={(value) => customIcons[value].label}
+                                IconContainerComponent={IconContainer}
+                            />
+                        </Box>
+                    </ListGroupItem>
+                </ListGroup>
                 </Card>
             )
         }
