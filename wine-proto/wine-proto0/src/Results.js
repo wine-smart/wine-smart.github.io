@@ -36,6 +36,11 @@ import expensiveRoseImg from "./assets/img/expensive-rose.png";
 var firstChoice = '';
 var secondChoice = '';
 var thirdChoice = '';
+var timerStart;
+var quizAns;
+var firstChoiceLinkClicked = false;
+var secondChoiceLinkClicked = false;
+var thirdChoiceLinkClicked = false;
 
 var point_map = new Map([['Merlot', 0], ['Shiraz', 0], ['Cabernet Sauvignon', 0], ["Moscato", 0], ["Pinot Grigio", 0], 
                         ["Chardonnay", 0], ["Sauvignon Blanc", 0], ["Sangria", 0], ["White Zinfandel", 0]]);
@@ -55,6 +60,7 @@ class Results extends React.Component {
         this.state.expense = this.state.chosenAnswers.chosenAnswers[0].answer;
 
         var answers = this.state.chosenAnswers;
+        quizAns = this.state.chosenAnswers;
         switch (answers.chosenAnswers[1].answer) {
             case "NotSweet":
                 this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot", "Pinot Grigio", "White Zinfandel", "Chardonnay"], 2);
@@ -408,12 +414,17 @@ class Results extends React.Component {
         )
     }
     render() {
+        timerStart = Date.now();
         return (
             <>
             <ExamplesNavbar />
             <div className = "results-container">
-                {this.getResults()}</div>
+                {this.getResults()}
+                <button type="button" onClick={this.getUsage} hidden>Get Research Information</button>
+            </div>
+            
             </>
+            
         )
     }
 
@@ -429,6 +440,33 @@ class Results extends React.Component {
         firstChoice = point_array[0][0];
         secondChoice = point_array[1][0];
         thirdChoice = point_array[2][0];
+    }
+
+    getUsage() {
+        // puts text content into usageText then creates a download for the user
+        var usageText = '';
+        usageText += 'firstChoice,secondChoice,thirdChoice,firstChoiceLinkClicked,secondChoiceLinkClicked,thirdChoiceLinkClicked,' +
+                        'timeSpent(ms),age,gender,race,ethnicity\n';
+        usageText += firstChoice; usageText += ',';
+        usageText += secondChoice; usageText += ',';
+        usageText += thirdChoice; usageText += ',';
+        usageText += firstChoiceLinkClicked.toString(); usageText += ',';
+        usageText += secondChoiceLinkClicked.toString(); usageText += ',';
+        usageText += thirdChoiceLinkClicked.toString(); usageText += ',';
+        usageText += (Date.now() - timerStart).toString(); usageText += ',';
+        usageText += quizAns.chosenAnswers[6].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[7].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[8].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[9].answer;
+        
+
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(usageText));
+        element.setAttribute('download', 'usageInfo.txt');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
 }
 export default Results;

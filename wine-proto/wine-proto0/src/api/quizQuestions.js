@@ -117,27 +117,27 @@ var quizQuestions = [
     question: "How old are you?",
     answers: [
         {
-            type: "na",
+            type: "Under 18",
             content: "Under 18"
         },
         {
-            type: "na",
+            type: "18-20",
             content: "18-20"
         },
         {
-            type: "na",
+            type: "21-30",
             content: "21-30"
         },
         {
-          type: "na",
+          type: "31-40",
           content: "31-40"
         },
         {
-          type: "na",
+          type: "41-60",
           content: "41-60"
         },
         {
-          type: "na",
+          type: "61+",
           content: "61+"
         }
       ]
@@ -146,23 +146,23 @@ var quizQuestions = [
     question: "What gender do you identify as?",
     answers: [
         {
-            type: "na",
+            type: "Male",
             content: "Male"
         },
         {
-            type: "na",
+            type: "Female",
             content: "Female"
         },
         {
-            type: "na",
+            type: "Transgender female",
             content: "Transgender female"
         },
         {
-          type: "na",
+          type: "Transgender male",
           content: "Transgender male"
         },
         {
-          type: "na",
+          type: "Non-binary",
           content: "Non-binary"
         },
         {
@@ -170,6 +170,52 @@ var quizQuestions = [
           content: "Prefer not to say"
         }
       ]
+  },
+  {
+    question: "What race do you identify as?",
+    answers: [
+        {
+              type: "American Indian/Alaska Native",
+              content:"American Indian orAlaska Native"
+        },
+        {
+            type: "Asian",
+            content:"Asian"
+        },
+        {
+            type: "Black/African American",
+            content:"Black or African American"
+        },
+        {
+            type: "Native Hawaiian/Other Pacific Islander",
+            content:"Native Hawaiian or Other Pacific Islander"
+        },
+        {
+            type: "White",
+            content:"White"
+        },
+        {
+            type: "na",
+            content:"Prefer not to say"
+        }
+    ]
+  },
+  {
+    question: "Do you identify as Hispanic or Latino?",
+    answers: [
+        {
+            type: "Hispanic/Latino",
+            content:"Yes"
+        },
+        {
+            type: "Not Hispanic/Latino",
+            content:"No"
+        },
+        {
+            type: "na",
+            content:"Prefer not to say"
+        }
+    ]
   }
 ];
 
