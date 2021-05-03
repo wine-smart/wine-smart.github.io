@@ -27,7 +27,8 @@ class Quiz1 extends React.Component {
           chosenAnswers: [],
           firstChoice: '',
           secondChoice: '',
-          thirdChoice: ''
+          thirdChoice: '',
+          finishedQuiz: false
         };
     
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -110,6 +111,8 @@ class Quiz1 extends React.Component {
       }
     
       renderResult() {
+        this.state.finishedQuiz = true;
+        this.setState({ finishedQuiz: true });
         return <Results chosenAnswers={this.state.chosenAnswers}  />;
       }
     

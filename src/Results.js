@@ -94,12 +94,18 @@ class Results extends React.Component {
 
         this.state = {
             expense: "",
-            chosenAnswers: ""
+            chosenAnswers: "",
+            finishedQuiz: false
         }
     }
 
     findWine1() {   
         this.state.chosenAnswers = this.props.location.state;
+        this.state.finishedQuiz = this.props.finishedQuiz;
+        if (!this.state.chosenAnswers) {
+            this.state.finishedQuiz = false;
+            return;
+        }
         this.state.expense = this.state.chosenAnswers.chosenAnswers[0].answer;
 
         var answers = this.state.chosenAnswers;
@@ -646,30 +652,51 @@ class Results extends React.Component {
     }
     render() {
         timerStart = Date.now();
-        return (
-            <>
-            <ExamplesNavbar />
-            <div className = "results-container">
-                {this.getResults()}
-                <CardDeck className = "results-card">
-                    <Card>
-                        <Button
-                            className="btn-round"
-                            class="info"
-                            onClick={this.getUsage}
-                            >
-                            Get Research Information
-                        </Button>
-                    </Card>
-                    
-                </CardDeck>
-                    
+        this.getResults();
+        if (this.state.chosenAnswers === undefined) {
+            return (
+                <>
+                <div className = "results-container">
+                    <ExamplesNavbar />
+                    <CardDeck className = "results-card">
+                            {/* <Card> */}
+                                <p>Please complete the quiz first before viewing recommendations. </p>
+                            {/* </Card> */}
+                    </CardDeck>
+                </div>
+                </>
                 
-            </div>
+                 
+            )
+        } else {
+            return (
             
-            </>
+
+                <>
+                <ExamplesNavbar />
+                <div className = "results-container">
+                    {this.getResults()}
+                    <CardDeck className = "results-card">
+                        <Card>
+                            <Button
+                                className="btn-round"
+                                class="info"
+                                onClick={this.getUsage}
+                                >
+                                Get Research Information
+                            </Button>
+                        </Card>
+                        
+                    </CardDeck>
+                        
+                    
+                </div>
+                
+                </>
             
-        )
+            )
+        }
+        
     }
 
     // Helper functions for the wine recommendation algorithm
