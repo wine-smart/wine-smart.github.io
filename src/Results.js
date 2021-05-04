@@ -659,9 +659,7 @@ class Results extends React.Component {
                 <div className = "results-container">
                     <ExamplesNavbar />
                     <CardDeck className = "results-card">
-                            {/* <Card> */}
-                                <p className="text-center mt-4" style={{width: "100%"}}>Please complete the quiz first before viewing recommendations. </p>
-                            {/* </Card> */}
+                        <p className="text-center mt-4" style={{width: "100%"}}>Please complete the quiz first before viewing recommendations. </p>
                     </CardDeck>
                 </div>
                 </>
