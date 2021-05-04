@@ -2,6 +2,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import {Card, CardDeck, ListGroup, ListGroupItem } from 'react-bootstrap';
+import {Button} from 'reactstrap'
 
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 
@@ -46,9 +47,13 @@ import Box from '@material-ui/core/Box';
 var firstChoice = '';
 var secondChoice = '';
 var thirdChoice = '';
+var timerStart;
+var quizAns;
 
 var point_map = new Map([['Merlot', 0], ['Shiraz', 0], ['Cabernet Sauvignon', 0], ["Moscato", 0], ["Pinot Grigio", 0], 
                         ["Chardonnay", 0], ["Sauvignon Blanc", 0], ["Sangria", 0], ["White Zinfandel", 0]]);
+var rating_map = new Map([['Merlot', 0], ['Shiraz', 0], ['Cabernet Sauvignon', 0], ["Moscato", 0], ["Pinot Grigio", 0], 
+["Chardonnay", 0], ["Sauvignon Blanc", 0], ["Sangria", 0], ["White Zinfandel", 0]]);
 
 
 const customIcons = {
@@ -89,21 +94,30 @@ class Results extends React.Component {
 
         this.state = {
             expense: "",
-            chosenAnswers: ""
+            chosenAnswers: "",
+            finishedQuiz: false
         }
     }
 
     findWine1() {   
         this.state.chosenAnswers = this.props.location.state;
+        this.state.finishedQuiz = this.props.finishedQuiz;
+        if (!this.state.chosenAnswers) {
+            this.state.finishedQuiz = false;
+            return;
+        }
         this.state.expense = this.state.chosenAnswers.chosenAnswers[0].answer;
 
         var answers = this.state.chosenAnswers;
+        quizAns = this.state.chosenAnswers;
         switch (answers.chosenAnswers[1].answer) {
             case "NotSweet":
                 this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot", "Pinot Grigio", "White Zinfandel", "Chardonnay"], 2);
                 break;
             case "Sweet":
                 this.incrementPoints(["Sauvignon Blanc", "Sangria", "Moscato"], 2);
+                break;
+            default:
                 break;
         }
         switch (answers.chosenAnswers[2].answer) {
@@ -127,8 +141,10 @@ class Results extends React.Component {
                 break;
             case "Light+":
                 this.incrementPoints(["Cabernet Sauvignon"], 3);
+                break;
             case "Medium+":
                 this.incrementPoints(["Merlot"], 3);
+                break;
             default: // white/rose for less tannins
                 this.incrementPoints(["Pinot Grigio", "White Zinfandel", "Chardonnay", "Moscato", "Sangria", "Sauvignon Blanc"], 3);
         }
@@ -139,6 +155,9 @@ class Results extends React.Component {
                 break;
             case "NotSour":
                 this.incrementPoints(["White Zinfandel", "Chardonnay", "Moscato", "Sangria"], 2);
+                break;
+            default:
+                break;
         }
         switch(answers.chosenAnswers[5].answer) {
             // Food pairings
@@ -147,6 +166,7 @@ class Results extends React.Component {
                 break;
             case "Asian":
                 this.incrementPoints(["Moscato", "Sangria"], 3);
+                break;
             default:
                 this.incrementPoints(["Shiraz", "Cabernet Sauvignon", "Merlot"], 3);
         }
@@ -187,6 +207,9 @@ class Results extends React.Component {
                             <Rating
                                 name="shiraz-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    this.updateRating(newValue, "Shiraz");
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -229,6 +252,9 @@ class Results extends React.Component {
                             <Rating
                                 name="cabernet-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Cabernet Sauvignon", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -271,6 +297,9 @@ class Results extends React.Component {
                             <Rating
                                 name="merlot-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Merlot", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -313,6 +342,9 @@ class Results extends React.Component {
                             <Rating
                                 name="pinot-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Pinot Grigio", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -356,6 +388,9 @@ class Results extends React.Component {
                                 name="chardonnay-rating"
                                 defaultValue={4}
                                 getLabelText={(value) => customIcons[value].label}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Chardonnay", newValue);
+                                }}
                                 IconContainerComponent={IconContainer}
                             />
                         </Box>
@@ -397,6 +432,9 @@ class Results extends React.Component {
                                 <Rating
                                     name="sauvignon-rating"
                                     defaultValue={4}
+                                    onChange={(event, newValue) => {
+                                        rating_map.set("Sauvignon Blanc", newValue);
+                                    }}
                                     getLabelText={(value) => customIcons[value].label}
                                     IconContainerComponent={IconContainer}
                                 />
@@ -440,6 +478,9 @@ class Results extends React.Component {
                             <Rating
                                 name="sangria-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Sangria", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -482,6 +523,9 @@ class Results extends React.Component {
                             <Rating
                                 name="moscato-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("Moscato", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -526,6 +570,9 @@ class Results extends React.Component {
                             <Rating
                                 name="rose-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("White Zinfandel", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -553,6 +600,9 @@ class Results extends React.Component {
                             <Rating
                                 name="zinfandel-rating"
                                 defaultValue={4}
+                                onChange={(event, newValue) => {
+                                    rating_map.set("White Zinfandel", newValue);
+                                }}
                                 getLabelText={(value) => customIcons[value].label}
                                 IconContainerComponent={IconContainer}
                             />
@@ -601,13 +651,52 @@ class Results extends React.Component {
         )
     }
     render() {
-        return (
-            <>
-            <ExamplesNavbar />
-            <div className = "results-container">
-                {this.getResults()}</div>
-            </>
-        )
+        timerStart = Date.now();
+        this.getResults();
+        if (this.state.chosenAnswers === undefined) {
+            return (
+                <>
+                <div className = "results-container">
+                    <ExamplesNavbar />
+                    <CardDeck className = "results-card">
+                            {/* <Card> */}
+                                <p className="text-center mt-4" style={{width: "100%"}}>Please complete the quiz first before viewing recommendations. </p>
+                            {/* </Card> */}
+                    </CardDeck>
+                </div>
+                </>
+                
+                 
+            )
+        } else {
+            return (
+            
+
+                <>
+                <ExamplesNavbar />
+                <div className = "results-container">
+                    {this.getResults()}
+                    <CardDeck className = "results-card">
+                        <Card>
+                            <Button
+                                className="btn-round"
+                                class="info"
+                                onClick={this.getUsage}
+                                >
+                                Get Research Information
+                            </Button>
+                        </Card>
+                        
+                    </CardDeck>
+                        
+                    
+                </div>
+                
+                </>
+            
+            )
+        }
+        
     }
 
     // Helper functions for the wine recommendation algorithm
@@ -623,5 +712,40 @@ class Results extends React.Component {
         secondChoice = point_array[1][0];
         thirdChoice = point_array[2][0];
     }
+
+    getUsage() {
+        // puts text content into usageText then creates a download for the user
+        var usageText = '';
+        usageText += 'firstChoice,secondChoice,thirdChoice,firstChoiceRating,secondChoiceRating,thirdChoiceRating,' +
+                        'timeSpentOnPage(ms),age,gender,race,ethnicity,previousRecommenderExperience,recommenderTrust\n';
+        usageText += firstChoice; usageText += ',';
+        usageText += secondChoice; usageText += ',';
+        usageText += thirdChoice; usageText += ',';
+
+        if (rating_map.get(firstChoice) === null) { rating_map.set(firstChoice, 0)}
+        if (rating_map.get(secondChoice) === null) { rating_map.set(secondChoice, 0)}
+        if (rating_map.get(thirdChoice) === null) { rating_map.set(thirdChoice, 0)}
+
+        usageText += rating_map.get(firstChoice).toString(); usageText += ',';
+        usageText += rating_map.get(secondChoice).toString(); usageText += ',';
+        usageText += rating_map.get(thirdChoice).toString(); usageText += ',';
+        usageText += (Date.now() - timerStart).toString(); usageText += ',';
+        usageText += quizAns.chosenAnswers[6].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[7].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[8].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[9].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[10].answer; usageText += ',';
+        usageText += quizAns.chosenAnswers[11].answer;
+
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(usageText));
+        element.setAttribute('download', 'usageInfo.csv');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+
 }
 export default Results;
