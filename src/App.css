@@ -18,6 +18,11 @@
   margin-top: 110px;
 }
 
+/* .error-card {
+  vertical-align:middle;
+  
+} */
+
 body {
   background-image: url("./background.jpg");
   background-repeat:repeat;
